@@ -1,0 +1,21 @@
+in terminal run :
+python manage.py shell
+
+
+then :
+from products.models import Product
+from accounts.models import Account
+Product.objects.filter(id=1).update(stock=10)
+Account.objects.filter(id=1).update(balance=10000)
+exit()
+
+
+
+in another terminal :
+curl.exe -X POST http://127.0.0.1:8001/orders/buy/atomic/ -d "user_id=1&product_id=1&quantity=999"
+# سيفشل لكن المخزون والرصيد لم يتغيرا (تم التراجع)
+
+# تحقق
+
+curl.exe http://127.0.0.1:8001/products/1/
+curl.exe "http://127.0.0.1:8001/accounts/balance/?user_id=1"
